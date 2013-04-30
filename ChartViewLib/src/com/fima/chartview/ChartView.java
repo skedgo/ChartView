@@ -88,31 +88,10 @@ public class ChartView extends RelativeLayout {
 		mRightLabelWidth = attributes.getDimensionPixelSize(R.styleable.ChartView_rightLabelWidth, 0);
 		mBottomLabelHeight = attributes.getDimensionPixelSize(R.styleable.ChartView_bottomLabelHeight, 0);
 
-		// left label layout
-		mLeftLabelLayout = new LinearLayout(context);
-		mLeftLabelLayout.setLayoutParams(new LayoutParams(mLeftLabelWidth, LayoutParams.MATCH_PARENT));
-		mLeftLabelLayout.setOrientation(LinearLayout.VERTICAL);
-
-		// top label layout
-		mTopLabelLayout = new LinearLayout(context);
-		mTopLabelLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, mTopLabelHeight));
-		mTopLabelLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-		// right label layout
-		LayoutParams rightLabelParams = new LayoutParams(mRightLabelWidth, LayoutParams.MATCH_PARENT);
-		rightLabelParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-		mRightLabelLayout = new LinearLayout(context);
-		mRightLabelLayout.setLayoutParams(rightLabelParams);
-		mRightLabelLayout.setOrientation(LinearLayout.VERTICAL);
-
-		// bottom label layout
-		LayoutParams bottomLabelParams = new LayoutParams(LayoutParams.MATCH_PARENT, mBottomLabelHeight);
-		bottomLabelParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
-		mBottomLabelLayout = new LinearLayout(context);
-		mBottomLabelLayout.setLayoutParams(bottomLabelParams);
-		mBottomLabelLayout.setOrientation(LinearLayout.HORIZONTAL);
+        setLeftLabelWidth(mLeftLabelWidth);
+        setRightLabelWidth(mRightLabelWidth);
+        setTopLabelHeight(mTopLabelHeight);
+        setBottomLabelHeight(mBottomLabelHeight);
 
 		// Add label views
 		addView(mLeftLabelLayout);
@@ -143,6 +122,52 @@ public class ChartView extends RelativeLayout {
 
 		invalidate();
 	}
+
+    // Label widths
+
+    public void setLeftLabelWidth(int width) {
+        mLeftLabelWidth = width;
+
+        if(mLeftLabelLayout == null) {
+            mLeftLabelLayout = new LinearLayout(getContext());
+            mLeftLabelLayout.setOrientation(LinearLayout.VERTICAL);
+        }
+        mLeftLabelLayout.setLayoutParams(new LayoutParams(width, LayoutParams.MATCH_PARENT));
+    }
+
+    public void setRightLabelWidth(int width) {
+        mRightLabelWidth = width;
+
+        if(mRightLabelLayout == null) {
+            mRightLabelLayout = new LinearLayout(getContext());
+            mRightLabelLayout.setOrientation(LinearLayout.VERTICAL);
+        }
+        mRightLabelLayout.setLayoutParams(new LayoutParams(width, LayoutParams.MATCH_PARENT));
+    }
+
+    public void setBottomLabelHeight(int height) {
+        mBottomLabelHeight = height;
+
+        if(mBottomLabelLayout == null) {
+            mBottomLabelLayout = new LinearLayout(getContext());
+            mBottomLabelLayout.setOrientation(LinearLayout.HORIZONTAL);
+        }
+
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, height);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mBottomLabelLayout.setLayoutParams(params);
+    }
+
+    public void setTopLabelHeight(int height) {
+        mTopLabelHeight = height;
+
+        if(mTopLabelLayout == null) {
+            mTopLabelLayout = new LinearLayout(getContext());
+            mTopLabelLayout.setOrientation(LinearLayout.HORIZONTAL);
+        }
+
+        mTopLabelLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, height));
+    }
 
 	// Label adapters
 
